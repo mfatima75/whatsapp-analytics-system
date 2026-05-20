@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sentiment Analysis
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Sentiment Analysis</h1>
+
+<p class="text-muted mb-5">
+Emotional and sentiment-based chat intelligence
+</p>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="analytics-card border-green">
+            <h5>Positive Messages</h5>
+            <h2>{{ positive }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="analytics-card border-red">
+            <h5>Negative Messages</h5>
+            <h2>{{ negative }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="analytics-card border-blue">
+            <h5>Positive %</h5>
+            <h2>{{ positive_percent }}%</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="analytics-card border-orange">
+            <h5>Negative %</h5>
+            <h2>{{ negative_percent }}%</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="analytics-card border-blue mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        Sentiment Distribution
+    </h3>
+
+    <div id="sentiment-chart"></div>
+
+</div>
+
+<script>
+
+    var sentimentGraph = JSON.parse('{{ pie_chart_json | safe }}');
+
+    Plotly.newPlot(
+        'sentiment-chart',
+        sentimentGraph.data,
+        sentimentGraph.layout
+    );
+
+</script>
+
+
+<div class="analytics-card border-primary mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        User-wise Sentiment Analysis
+    </h3>
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+                <th>User</th>
+                <th>Positive %</th>
+                <th>Negative %</th>
+                <th>Nature</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for user, data in user_sentiments.items() %}
+
+            <tr>
+
+                <td>{{ user }}</td>
+
+                <td>{{ data.positive }}%</td>
+
+                <td>{{ data.negative }}%</td>
+
+                <td>{{ data.label }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

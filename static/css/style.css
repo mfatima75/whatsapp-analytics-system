@@ -1,0 +1,228 @@
+/* General Page Styling */
+body {
+    margin: 0;
+    padding: 0;
+/*
+    background-color: #f4f7fb;
+*/
+    background-color: #f5f7fb;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+
+    color: #1e293b;
+
+    font-weight: 700;
+}
+
+.table {
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.table thead {
+
+    background-color: #eef2ff;
+}
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    width: 260px;
+    height: 100vh;
+    background-color: #071c2f;
+    color: white;
+    padding-top: 20px;
+}
+
+/* Logo Section */
+.logo-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-section h2 {
+    margin: 10px 0 5px;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.logo-section p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    margin-top: 20px;
+}
+
+.sidebar-menu a {
+    display: block;
+    color: #e2e8f0;
+    text-decoration: none;
+    padding: 14px 25px;
+    margin: 8px 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.sidebar-menu a:hover {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+.active-menu {
+    background-color: #0ea5e9;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    padding: 25px;
+}
+
+/* Top Navbar */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.top-navbar h2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.search-box input {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 280px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Analytics Cards */
+.analytics-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    transition: all 0.3s ease;
+
+    border-left: 6px solid transparent;
+}
+
+.analytics-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+
+.analytics-card h6 {
+    color: #64748b;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.analytics-card h2 {
+    margin: 0;
+    font-weight: bold;
+}
+.border-green {
+    border-left: 5px solid #22c55e;
+}
+
+.border-red {
+    border-left: 5px solid #ef4444;
+}
+
+.border-blue {
+    border-left: 5px solid #3b82f6;
+}
+
+.border-orange {
+    border-left: 5px solid #f59e0b;
+}
+
+/* Colored Borders */
+.border-blue {
+    border-left: 6px solid #38bdf8;
+}
+
+.border-green {
+    border-left: 6px solid #22c55e;
+}
+
+.border-orange {
+    border-left: 6px solid #f59e0b;
+}
+
+.border-red {
+    border-left: 6px solid #ef4444;
+}
+
+.border-purple {
+    border-left: 5px solid #8b5cf6;
+}
+
+/* Upload Section */
+.upload-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.upload-btn {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.upload-btn:hover {
+    background-color: #1ebe5d;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .top-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+}

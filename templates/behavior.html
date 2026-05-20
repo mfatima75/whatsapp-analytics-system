@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}
+Behavior Insights
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Behavior Insights</h1>
+
+<p class="text-muted mb-5">
+AI-powered behavioral and personality intelligence from WhatsApp chats
+</p>
+
+{% if behavior_data %}
+
+<div class="analytics-card border-purple mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        Behavioral Intelligence Insights
+    </h3>
+
+    <div class="analytics-card border-blue mt-4">
+
+    <h3 class="mb-3 fw-bold">
+        Select User
+    </h3>
+
+    <select class="form-select" id="userSelect">
+
+        <option selected>
+            Select User
+        </option>
+
+        {% for user in users_list %}
+
+            <option value="{{ user }}">
+                {{ user }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="analytics-card border-blue">
+                <h5>Social Style</h5>
+                <h2>{{ behavior_data.extrovert_label }}</h2>
+                <p>Score: {{ behavior_data.extrovert_score }}/100</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-red">
+                <h5>Emotional Tendency</h5>
+                <h2>{{ behavior_data.emotional_label }}</h2>
+                <p>Score: {{ behavior_data.emotional_score }}/100</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-green">
+                <h5>Participation Level</h5>
+                <h2>{{ behavior_data.active_label }}</h2>
+                <p>Score: {{ behavior_data.active_score }}/100</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-orange">
+                <h5>Communication Style</h5>
+                <h2>{{ behavior_data.formal_label }}</h2>
+                <p>Score: {{ behavior_data.formal_score }}/100</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% if behavior_summary %}
+
+<div class="analytics-card border-purple mt-4">
+
+    <h3 class="fw-bold mb-4">
+        AI Behavioral Insight Summary
+    </h3>
+
+    <p style="font-size: 18px; line-height: 1.8;">
+        {{ behavior_summary }}
+    </p>
+
+</div>
+
+{% endif %}
+
+<div class="analytics-card border-purple mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        Night Owl Detection
+    </h3>
+
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Night Activity %</th>
+            <th>Behavior Type</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for user, data in night_owl_data.items() %}
+
+        <tr class="night-row" data-user="{{ user|trim }}">
+
+            <td>{{ user }}</td>
+            <td>{{ data.night_percentage }}%</td>
+            <td>{{ data.label }}</td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+</div>
+
+<div class="analytics-card border-blue mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        Response Time Analysis
+    </h3>
+
+    <table class="table">
+
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Average Response Time</th>
+            <th>Behavior</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for user, data in response_data.items() %}
+
+        <tr class="response-row" data-user="{{ user|trim }}">
+
+            <td>{{ user }}</td>
+            <td>{{ data.avg_response }} mins</td>
+            <td>{{ data.label }}</td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+</div>
+
+<script>
+
+const userSelect = document.getElementById("userSelect");
+
+userSelect.addEventListener("change", function () {
+
+    const selectedUser = this.value.trim();
+
+    // NIGHT OWL ROWS
+
+    const nightRows = document.querySelectorAll(".night-row");
+
+    nightRows.forEach(row => {
+
+        const rowUser = row.getAttribute("data-user").trim();
+
+        if (
+            selectedUser === "Select User" ||
+            rowUser === selectedUser
+        ) {
+            row.style.display = "table-row";
+        }
+
+        else {
+            row.style.display = "none";
+        }
+
+    });
+
+    // RESPONSE ROWS
+
+    const responseRows = document.querySelectorAll(".response-row");
+
+    responseRows.forEach(row => {
+
+        const rowUser = row.getAttribute("data-user").trim();
+
+        if (
+            selectedUser === "Select User" ||
+            rowUser === selectedUser
+        ) {
+            row.style.display = "table-row";
+        }
+
+        else {
+            row.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
+
+
+<div class="analytics-card border-success mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        User Engagement Scores
+    </h3>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Engagement Score</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for user, data in engagement_scores.items() %}
+
+            <tr class="engagement-row" data-user="{{ user }}">
+
+                <td>{{ user }}</td>
+
+                <td>{{ data.score }}</td>
+
+                <td>{{ data.label }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="analytics-card border-dark mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        AI Personality Insights
+    </h3>
+
+    {% for user, insight in personality_insights.items() %}
+
+        <div class="alert alert-secondary personality-card"
+     data-user="{{ user }}">
+
+            <strong>{{ user }}</strong><br><br>
+
+            {{ insight }}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="analytics-card border-primary mt-4">
+
+    <h3 class="mb-4 fw-bold">
+        Friendship Interaction Graph
+    </h3>
+
+    <img
+        src="{{ friendship_graph }}"
+        class="img-fluid rounded"
+    >
+
+</div>
+
+<script>
+
+document.getElementById("userSelect").addEventListener("change", function () {
+
+    let selectedUser = this.value;
+
+    // RESPONSE TABLE
+
+    document.querySelectorAll(".response-row").forEach(row => {
+
+        if (
+            selectedUser === "All" ||
+            row.dataset.user === selectedUser
+        ) {
+            row.style.display = "";
+
+        } else {
+            row.style.display = "none";
+        }
+
+    });
+
+    // ENGAGEMENT TABLE
+
+    document.querySelectorAll(".engagement-row").forEach(row => {
+
+        if (
+            selectedUser === "All" ||
+            row.dataset.user === selectedUser
+        ) {
+            row.style.display = "";
+
+        } else {
+            row.style.display = "none";
+        }
+
+    });
+
+    // NIGHT OWL TABLE
+
+    document.querySelectorAll(".night-row").forEach(row => {
+
+        if (
+            selectedUser === "All" ||
+            row.dataset.user === selectedUser
+        ) {
+            row.style.display = "";
+
+        } else {
+            row.style.display = "none";
+        }
+
+    });
+
+    // PERSONALITY INSIGHTS
+
+    document.querySelectorAll(".personality-card").forEach(card => {
+
+        if (
+            selectedUser === "All" ||
+            card.dataset.user === selectedUser
+        ) {
+            card.style.display = "";
+
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
+
+
+
+{% endblock %}

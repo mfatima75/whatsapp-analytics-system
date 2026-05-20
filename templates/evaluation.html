@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+Model Evaluation
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Machine Learning Model Evaluation</h1>
+
+<p class="text-muted mb-5">
+Performance evaluation of sentiment analysis and AI models
+</p>
+
+{% if model_metrics %}
+
+<div class="analytics-card border-purple mt-4">
+
+    <h3 class="fw-bold mb-4">
+        Model Performance Metrics
+    </h3>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="analytics-card border-blue">
+                <h5>Accuracy</h5>
+                <h2>{{ model_metrics.accuracy }}%</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-green">
+                <h5>Precision</h5>
+                <h2>{{ model_metrics.precision }}%</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-orange">
+                <h5>Recall</h5>
+                <h2>{{ model_metrics.recall }}%</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="analytics-card border-red">
+                <h5>F1 Score</h5>
+                <h2>{{ model_metrics.f1_score }}%</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
